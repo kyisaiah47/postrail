@@ -53,4 +53,8 @@ test('a link in a no-link slot, a hashtag on a no-hashtag account, and a repeat 
 test('a draft that stops in the middle of a sentence is refused', () => {
   assert.equal(checkCopy('Every endpoint has a flat price. You pay $0.08 for', { account: acct, gates })[0].gate, 'unfinished');
   assert.deepEqual(checkCopy('Every endpoint has a flat price. https://acme.example', { account: acct, gates }), []);
+  // Two real drafts from a Gemini model on 2026-10-02. Each ends on a link and is a whole sentence.
+  assert.deepEqual(checkCopy('Acme Parse turns an invoice into JSON fields. A call is charged only when it succeeds. You can test it at https://acme.example.', { account: acct, gates }), []);
+  assert.deepEqual(checkCopy('Acme Parse turns an invoice into JSON fields. You can parse documents with Acme Parse at https://acme.example', { account: acct, gates }), []);
+  assert.equal(checkCopy('Acme Parse reads invoices. You pay $0.08 for #api', { account: acct, gates: { ...gates }, recent: [] }).some((r) => r.gate === 'unfinished'), true);
 });

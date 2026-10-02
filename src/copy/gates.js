@@ -70,9 +70,11 @@ export function platformLength(text, count = 'chars') {
 const DASHES = /[\u2014\u2013\u2015\u2212]/;
 const FINISHED = /[.!?\u2026)"'\u201d\u2019\]]$|\p{Extended_Pictographic}$/u;
 
-/** Does the text end on a finished sentence, once trailing links and hashtags are set aside? */
+/** Does the text end on a finished sentence? Trailing hashtags are set aside first. A post that
+ *  ends on a link is finished, because "You can test it at <link>." is a whole sentence. */
 export function finished(text) {
-  const t = String(text || '').replace(/(\s*(https?:\/\/\S+|#[A-Za-z]\w*))+\s*$/u, '').trim();
+  const t = String(text || '').replace(/(\s+#[A-Za-z]\w*)+\s*$/u, '').trim();
+  if (/https?:\/\/\S+$/u.test(t)) return true;
   return !t || FINISHED.test(t);
 }
 
