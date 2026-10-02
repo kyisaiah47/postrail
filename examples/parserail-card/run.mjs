@@ -9,11 +9,12 @@
 //   1. the day plan for each account (times inside each window, the minimum gap, the rolled kinds)
 //   2. one tick: the first draft for a pitch carries filler, the noise gate refuses it, the slot
 //      composes again inside the same tick, and the second draft posts
-//   3. the card each post carries, written under your temp folder in postrail-example/media/
-//   4. the dry outbox, which is exactly what each transport was handed
+//   3. the card each post carries, written to examples/parserail-card/out/media/
+//   4. the dry outbox, which is exactly what each transport was handed, in examples/parserail-card/out/
+//
+// Everything the example writes goes to out/ beside this file. Git ignores that folder.
 
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -39,7 +40,7 @@ export function stubWriter() {
   });
 }
 
-export async function runExample({ outDir = path.join(os.tmpdir(), 'postrail-example'), useModel = false, log = (s) => process.stdout.write(`${s}\n`) } = {}) {
+export async function runExample({ outDir = path.join(HERE, 'out'), useModel = false, log = (s) => process.stdout.write(`${s}\n`) } = {}) {
   const { config: raw, dir } = await loadConfig(path.join(HERE, 'postrail.config.json'));
   const { config } = mustValidate(raw);
   fs.rmSync(outDir, { recursive: true, force: true });
