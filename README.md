@@ -33,6 +33,10 @@ The example has three made-up accounts on Bluesky, X, and LinkedIn. The accounts
 
 Add `--gemini` and set `GEMINI_API_KEY` to have a Gemini model write the posts instead of the fixed writer.
 
+### Watch the tutorial
+
+A video tutorial runs this example and then adapts it to a different product. The video is at https://youtu.be/qBmmwugsHYs on the Compound Labs YouTube channel. It shows the config, the dry run, the cards and the outbox. It then copies the example, replaces the ParseRail facts with another product's facts, and runs the dashboard scaffold.
+
 ## Configure
 
 A config is a JSON file or a module that exports the same object. This is one account:
