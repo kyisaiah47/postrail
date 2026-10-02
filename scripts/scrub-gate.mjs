@@ -19,6 +19,13 @@
 // hashes every candidate, and compares. A URL host is not a handle mention, so the full host of a
 // link is not compared, but each label of it is.
 //
+// THE OWNER HANDLE IS A MENTION RULE, NOT A TOKEN RULE (2026-10-02). The GitHub account that owns
+// this repository is also a personal handle, and the npm page and the README have to link the
+// repository. So that one handle sits in the `mention` set: it is refused written as @handle, and
+// a GitHub URL under it passes only when it is exactly this repository (REPO_URLS). A link to any
+// other repository under that owner is refused, because it would name a repository that may be
+// private. Every other handle stays in the `token` set and is refused in any position.
+//
 // Families 2 to 5 are public knowledge and are written as plain patterns, built from fragments so
 // the gate never matches its own source.
 //
@@ -48,7 +55,6 @@ export const HASHED = {
     'f97d1a6d48ff90577869e3fafa8ff724',
     'ec41841c1089d1221c3f21b968e0495e',
     'bb03f69cdf0e5c15fdcb3099721163d1',
-    'ec3c354e13f21e44c2cf042be8798eeb',
     '067972802fdbc579ef7426a59ba71b60',
     '5057c9de16235180208341af3ce2d87d',
     'b16e7d94adcbf8169afed779235684a5',
@@ -84,6 +90,9 @@ export const HASHED = {
   ]),
   phrase: new Set([
     'b41855d3df6d78a669e8c8ce4e06563d',
+  ]),
+  mention: new Set([
+    '4b78f88bc5a5a409796bc1ce22cb7c4d',
   ]),
   path: new Set([
     'bfac99e7b46394ef30ab6016bdc33571',
@@ -170,17 +179,33 @@ export function tokenCandidates(token, { host = false } = {}) {
   return out;
 }
 
+/** The repositories a GitHub URL under a `mention` owner may name: this one, and nothing else. */
+export const REPO_URLS = ['postrail'];
+
+const GITHUB_REPO = /github\.com\/([a-z0-9-]+)\/([a-z0-9._-]+)/g;
+
 /** Every private identifier in one text: [{ line, kind, text }]. */
-export function hashedFindings(text, hashed = HASHED) {
+export function hashedFindings(text, hashed = HASHED, { repos = REPO_URLS } = {}) {
   const lower = String(text).toLowerCase();
   const found = [];
+  const mentions = hashed.mention || new Set();
   const lineAt = (i) => lower.slice(0, i).split('\n').length;
   for (const m of lower.matchAll(TOKEN)) {
     const i = m.index;
     const emailDomain = m[0][0] === '@' && /[a-z0-9._%+-]/.test(lower[i - 1] || '');
     const host = lower.slice(Math.max(0, i - 3), i) === '://' || emailDomain;
+    if (m[0][0] === '@' && !emailDomain) {
+      const handle = m[0].slice(1).split('.')[0];
+      if (mentions.has(hash('mention', handle))) { found.push({ line: lineAt(i), kind: 'a private handle written as a mention', text: `@${handle}` }); continue; }
+    }
     for (const c of tokenCandidates(m[0], { host })) {
       if (hashed.token.has(hash('token', c))) { found.push({ line: lineAt(i), kind: 'a private identifier', text: c }); break; }
+    }
+  }
+  for (const m of lower.matchAll(GITHUB_REPO)) {
+    const repo = m[2].replace(/\.git$/, '').replace(/[.]+$/, '');
+    if (mentions.has(hash('mention', m[1])) && !repos.includes(repo)) {
+      found.push({ line: lineAt(m.index), kind: 'a link to another repository under a private handle', text: `github.com/.../${repo}` });
     }
   }
   for (const m of lower.matchAll(EMAIL)) {
@@ -257,8 +282,8 @@ export function scanTree(root) {
 function main(argv) {
   if (argv[0] === '--hash') {
     const [, kind, ...rest] = argv;
-    if (!['token', 'email', 'phrase', 'path'].includes(kind) || !rest.length) {
-      process.stderr.write('usage: scrub-gate.mjs --hash token|email|phrase|path <value>\n');
+    if (!['token', 'mention', 'email', 'phrase', 'path'].includes(kind) || !rest.length) {
+      process.stderr.write('usage: scrub-gate.mjs --hash token|mention|email|phrase|path <value>\n');
       return 2;
     }
     process.stdout.write(`${hash(kind, rest.join(' '))}\n`);

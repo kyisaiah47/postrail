@@ -1,11 +1,18 @@
 {
   "name": "postrail",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Open-source social posting agent. An account registry, a slot engine that retries until a post lands, official API transports, cards, video cuts, an optional reply module that is off by default, and a review command that reads what was actually posted.",
   "type": "module",
   "license": "MIT",
   "author": "Compound Labs (https://thecompound.tech)",
   "homepage": "https://postrail.thecompound.tech",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyisaiah47/postrail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kyisaiah47/postrail/issues"
+  },
   "keywords": [
     "social",
     "scheduler",

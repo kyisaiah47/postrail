@@ -9,7 +9,7 @@ import { hash, hashedFindings, patternFindings, tokenCandidates, scanTree } from
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const j = (...p) => p.join('');
-const list = (o) => ({ token: new Set(o.token || []), email: new Set(o.email || []), phrase: new Set(o.phrase || []), path: new Set(o.path || []) });
+const list = (o) => ({ token: new Set(o.token || []), mention: new Set(o.mention || []), email: new Set(o.email || []), phrase: new Set(o.phrase || []), path: new Set(o.path || []) });
 
 test('a hashed handle is found as a mention, a path segment and a label, but not as a link host', () => {
   const hashed = list({ token: [hash('token', 'private.example'), hash('token', 'secret_handle')] });
@@ -19,6 +19,19 @@ test('a hashed handle is found as a mention, a path segment and a label, but not
   assert.equal(hashedFindings('https://private.example and https://sub.private.example', hashed).length, 0);
   assert.equal(hashedFindings('write to hello@private.example', hashed).length, 0);
   assert.ok(tokenCandidates('secret_handle-bot').has('secret_handle'));
+});
+
+test('an owner handle is refused as a mention, and its URLs pass only for this repository', () => {
+  const hashed = list({ mention: [hash('mention', 'owner-handle9')] });
+  // GitHub user names hold letters, digits and hyphens, so the fixture does too.
+  const opts = { repos: ['postrail'] };
+  assert.equal(hashedFindings('follow @Owner-Handle9 for updates', hashed, opts).length, 1);
+  assert.equal(hashedFindings('https://github.com/owner-handle9/postrail', hashed, opts).length, 0);
+  assert.equal(hashedFindings('"url": "git+https://github.com/owner-handle9/postrail.git"', hashed, opts).length, 0);
+  assert.equal(hashedFindings('https://github.com/owner-handle9/postrail/issues', hashed, opts).length, 0);
+  assert.equal(hashedFindings('https://github.com/owner-handle9/private-ops', hashed, opts).length, 1);
+  assert.equal(hashedFindings('https://github.com/someone-else/private-ops', hashed, opts).length, 0);
+  assert.equal(hashedFindings('write to someone@owner-handle9.example', hashed, opts).length, 0);
 });
 
 test('a hashed email prefix, name and home path are found', () => {

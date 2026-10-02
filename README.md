@@ -2,7 +2,7 @@
 
 PostRail is an open-source agent that posts to your social accounts on a schedule. It plans each account's day, writes each post with the model you choose, attaches a card or a video cut, and sends the post through the platform's official API. A post that comes due stays owed until it lands, and only the platform can stop it.
 
-PostRail is built by [Compound Labs](https://thecompound.tech) and released under the MIT license. Its site is https://postrail.thecompound.tech.
+PostRail is built by [Compound Labs](https://thecompound.tech) and released under the MIT license. The source is at https://github.com/kyisaiah47/postrail, and the site is https://postrail.thecompound.tech.
 
 ## What PostRail does
 
@@ -268,7 +268,7 @@ npm run scrub   # the scrub gate
 
 The tests use a stub provider, a fake fetch for every API transport, and a fake site on localhost for the browser transport. One test calls Gemini, and it runs only when `GEMINI_API_KEY` is set.
 
-The scrub gate runs in CI on every push and fails the build on personal email addresses, private account handles and identifiers, home directory paths, key-shaped strings, the stealth plugin and other libraries that disguise a browser, captcha services, and overrides of `navigator.webdriver`. Private identifiers are stored as salted hashes, so the gate does not publish the list it protects. `node scripts/scrub-gate.mjs --hash token <value>` prints the hash for one you want to add. The gate has no allowlist and no override.
+The scrub gate runs in CI on every push and fails the build on personal email addresses, private account handles and identifiers, home directory paths, key-shaped strings, the stealth plugin and other libraries that disguise a browser, captcha services, and overrides of `navigator.webdriver`. Private identifiers are stored as salted hashes, so the gate does not publish the list it protects. The repository owner's handle is refused only in `@` form, and a GitHub link under it passes only when it points at this repository. `node scripts/scrub-gate.mjs --hash token <value>` prints the hash for an identifier you want refused anywhere, and `--hash mention <value>` for a handle refused only in `@` form. The gate has no allowlist and no override.
 
 ## License
 
