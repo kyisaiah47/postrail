@@ -6,7 +6,7 @@
 import path from 'node:path';
 import {
   loadConfig, validateConfig, createFileStore, planDay, localDate, localClock, review, hasFindings,
-} from 'postrail';
+} from 'postrail/read';
 
 export async function readBoard() {
   const configPath = path.resolve(process.env.POSTRAIL_CONFIG || '__CONFIG_DEFAULT__');

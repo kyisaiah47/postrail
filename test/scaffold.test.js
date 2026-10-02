@@ -17,7 +17,7 @@ for (const mode of ['console', 'simple', 'both']) {
     }
     const pkg = JSON.parse(read(dir, 'package.json'));
     assert.ok(pkg.dependencies.next && pkg.dependencies.postrail && pkg.dependencies.react);
-    assert.match(read(dir, 'lib/board.js'), /from 'postrail'/);
+    assert.match(read(dir, 'lib/board.js'), /from 'postrail\/read'/);
     assert.match(read(dir, 'lib/board.js'), /\.\.\/postrail\.config\.json/);
     assert.match(read(dir, 'next.config.mjs'), /serverExternalPackages: \['postrail'\]/);
     const has = (f) => files.includes(f);

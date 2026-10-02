@@ -28,6 +28,7 @@
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",
+    "./read": "./src/read.js",
     "./package.json": "./package.json"
   },
   "files": [

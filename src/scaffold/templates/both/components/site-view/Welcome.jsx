@@ -80,7 +80,7 @@ export default function Welcome({ example }) {
           </div>
           <section className="sv-illustration" aria-label="Illustration of one slot">
             <p className="sv-illustration-label">{example.real ? 'One slot from your ledger' : 'Illustration'}</p>
-            <p>At {example.time} the plan rolled a {example.kind} post for {example.account}.</p>
+            <p>At {example.time}, {example.account} posted this {example.kind} post.</p>
             <blockquote>{example.text}</blockquote>
           </section>
           <section className="sv-welcome-choose">
