@@ -80,11 +80,14 @@ export async function attempts(fn, { max = 12, log = null, what = 'draft' } = {}
       critique = 'The last attempt produced nothing. Write the post.';
     } catch (e) {
       if (!isOurs(e)) throw e;
-      const line = String(e.message).split('\n')[0].slice(0, 200);
+      /* A long refusal is cut at its last whole sentence inside 200 characters, never mid-word. */
+      const first = String(e.message).split('\n')[0];
+      const cut = first.slice(0, 200);
+      const line = first.length <= 200 ? first : ((cut.match(/^.*[.!?](?=\s)/) || [])[0] || `${cut.replace(/\s+\S*$/, '')}...`);
       refusals.push(`attempt ${i + 1}: ${line}`);
       critique = e.critique || line;
     }
-    if (log) log(`${what}: ${refusals[refusals.length - 1]}, composing another`);
+    if (log) log(`${what}: ${refusals[refusals.length - 1].replace(/[.\s]+$/, '')}. Composing another draft.`);
   }
   throw new SlotStillOwed(
     `${max} attempts were each refused and the slot is still owed. Tried: ${refusals.join(' | ').slice(0, 800)}`,
