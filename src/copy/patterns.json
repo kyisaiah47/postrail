@@ -1,0 +1,186 @@
+{
+ "$comment": "The copy gates. Two lists of regular expressions that refuse filler in outward copy. The noise list catches performed sincerity, narrated answers and product filler. The prose list catches captions in place of sentences, money figures with no payer, metaphors for the product, labels in place of sentences and modifier tails on names. A pattern may carry `requires` and `unless`, case-sensitive expressions tested against the sentence around the hit, and `min_words`. Noise patterns match case-insensitively. Prose patterns run after URLs are replaced by <url>.",
+ "families": {
+  "performed-sincerity": "a phrase announcing that the writer is being honest instead of being honest",
+  "narrating-the-answer": "a phrase that describes the sentence that follows instead of saying it",
+  "filler-noise": "marketing filler that would fit any product",
+  "caption-for-a-link": "a noun phrase ending in a colon in front of a link, in place of a sentence that says what the link is",
+  "figure-without-payer": "a percent or money figure with no clause saying who pays or gets it",
+  "product-metaphor": "a metaphor or coined name standing in for the product or its output",
+  "label-not-sentence": "a noun phrase ending in a colon alone on a line, followed by prose instead of a list",
+  "modifier-tail": "a name with a relative clause or a participial phrase hung off it instead of the plain noun"
+ },
+ "patterns": [
+  {
+   "slug": "honesty-preface",
+   "list": "noise",
+   "family": "performed-sincerity",
+   "pattern": "\\b(?:to\\s+be\\s+(?:(?:completely|totally|fully|perfectly|brutally|entirely|very)\\s+)?(?:transparent|honest|candid|frank|straight|upfront|fair|blunt|real|direct)(?:\\s+with\\s+you)?|in\\s+the\\s+interest\\s+of\\s+(?:honesty|transparency|full\\s+disclosure|candou?r|being\\s+(?:honest|upfront|transparent))|full\\s+disclosure|in\\s+all\\s+honesty|in\\s+full\\s+transparency|for\\s+(?:full\\s+)?transparency(?:['’]s\\s+sake)?|for\\s+(?:the\\s+sake\\s+of\\s+)?honesty|(?:i|we)(?:\\s+will|['’]ll)\\s+be\\s+(?:honest|transparent|upfront|candid|straight|blunt|direct|frank|real)(?:\\s+with\\s+you)?)\\b"
+  },
+  {
+   "slug": "honest-adverb",
+   "list": "noise",
+   "family": "performed-sincerity",
+   "pattern": "(?:^|[.!?;:(]\\s*|,\\s+|\\*\\*)(?:quite\\s+|very\\s+|just\\s+)?(?:honestly|truthfully|frankly|candidly)\\s*[,:?.!]|\\b(?:i|we)\\s+(?:honestly|truthfully|frankly|candidly)\\s+(?:think|don['’]?t|do\\s+not|can['’]?t|cannot|have|had|am|would|could|believe|feel|know)\\b|\\bif\\s+(?:i|we)(?:\\s+am|['’]m|\\s+are|['’]re)\\s+(?:being\\s+)?(?:honest|candid|frank)\\b|\\b(?:i|we)(?:\\s+am|['’]m|\\s+are|['’]re)\\s+being\\s+(?:honest|candid|frank|real)\\b"
+  },
+  {
+   "slug": "want-to-be-clear",
+   "list": "noise",
+   "family": "performed-sincerity",
+   "pattern": "\\b(?:i|we)\\s+(?:want|need|have|ought|would\\s+like)\\s+to\\s+be\\s+(?:clear|upfront|honest|transparent|candid|straight|direct|blunt)\\b|\\blet\\s+me\\s+be\\s+(?:clear|honest|upfront|candid|blunt|direct|frank|straight|real)\\b|\\b(?:i|we)\\s+should\\s+be\\s+(?:upfront|clear|honest|transparent|candid)\\b|\\b(?:just\\s+)?(?:so|to)\\s+be\\s+clear\\s*[,:]"
+  },
+  {
+   "slug": "real-talk",
+   "list": "noise",
+   "family": "performed-sincerity",
+   "pattern": "\\breal\\s+talk\\b|\\bnot\\s+gonna\\s+lie\\b|\\bngl\\b|\\b(?:i|we)(?:\\s+am|['’]m|\\s+are|['’]re)\\s+not\\s+going\\s+to\\s+lie\\b|\\b(?:i|we)\\s+(?:won['’]t|will\\s+not)\\s+(?:lie|sugar-?coat|pretend|bullshit)\\b|\\bno\\s+sugar-?coating\\b|\\b(?:i|we)(?:['’]ll|\\s+will)\\s+level\\s+with\\s+you\\b|\\bcards\\s+on\\s+the\\s+table\\b|\\bstraight\\s+up\\s*[,:]|\\btruth\\s+be\\s+told\\b|\\bto\\s+tell\\s+(?:you\\s+)?the\\s+truth\\b|\\bthe\\s+honest\\s+(?:truth|answer|version)\\s+is\\b"
+  },
+  {
+   "slug": "should-note",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\b(?:i|we)\\s+should\\s+(?:note|mention|say|flag|point\\s+out|add|clarify|caveat|disclose|acknowledge|admit)\\b|\\bit(?:['’]s|\\s+is)\\s+worth\\s+(?:mentioning|noting|saying|pointing\\s+out|flagging|adding|calling\\s+out)\\b|\\bworth\\s+(?:noting|mentioning|flagging)\\s*[:,]|\\b(?:one|a)\\s+(?:thing|note|point)\\s+worth\\s+(?:noting|mentioning|flagging)\\b|\\b(?:i|we)\\s+(?:would|want\\s+to|['’]d\\s+like\\s+to|['’]d)\\s+(?:note|flag|point\\s+out|add|mention|acknowledge|admit)\\s+(?:that|here|up\\s+front|upfront)\\b"
+  },
+  {
+   "slug": "id-say",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\b(?:i|we)(?:\\s+would|['’]d)\\s+(?:say|argue|call\\s+it|put\\s+it|describe\\s+it|characteri[sz]e\\s+it|frame\\s+it)\\b|\\b(?:i|we)\\s+(?:think|believe|guess|suppose|feel)\\s+(?:it(?:['’]s|\\s+is)\\s+)?(?:fair|safe|accurate|reasonable)\\s+to\\s+say\\b|\\bit(?:['’]s|\\s+is)\\s+(?:fair|safe|accurate|reasonable)\\s+to\\s+say\\b|\\b(?:i|we)\\s+(?:would|['’]d)\\s+(?:probably|likely)\\s+say\\b"
+  },
+  {
+   "slug": "what-i-can-tell-you",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\bwhat\\s+(?:i|we)\\s+can\\s+(?:tell|say|offer|give)\\s+(?:you|them|here)\\b|\\bwhat\\s+(?:i|we)\\s+can\\s+say\\s+is\\b|\\bwhat\\s+(?:i|we)(?:['’]ll|\\s+will)\\s+say\\s+is\\b|\\bhere(?:['’]s|\\s+is)\\s+what\\s+(?:i|we)\\s+can\\s+(?:say|tell|offer|share)\\b|\\b(?:i|we)(?:['’]ll|\\s+will)\\s+say\\s+this\\s*[:,]"
+  },
+  {
+   "slug": "short-version",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\bthe\\s+(?:short|long|quick|simple|tl;?dr|one-?line)\\s+(?:version|answer|of\\s+it)\\s+(?:is|being|:)|\\b(?:long|short)\\s+story\\s+short\\b|\\bin\\s+short\\s*[,:]|\\bto\\s+(?:put\\s+it\\s+)?(?:simply|briefly|summari[sz]e|sum\\s+up)\\b|\\b(?:put|stated)\\s+(?:simply|plainly|bluntly)\\s*[,:]|\\bsimply\\s+put\\s*[,:]|\\bthe\\s+bottom\\s+line\\s+(?:is|:)|\\bbottom\\s+line\\s*[:,]|\\bnet\\s+net\\b|\\bthe\\s+(?:upshot|gist|takeaway)\\s+(?:is|:)|\\bin\\s+a\\s+nutshell\\b|\\btl;?dr\\s*[:,]"
+  },
+  {
+   "slug": "in-other-words",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\bin\\s+other\\s+words\\b|\\bput\\s+(?:another|a\\s+different)\\s+way\\b|\\bto\\s+put\\s+it\\s+another\\s+way\\b|\\bwhich\\s+is\\s+to\\s+say\\b|\\bthat\\s+is\\s+to\\s+say\\b|\\bor,?\\s+to\\s+put\\s+it\\b"
+  },
+  {
+   "slug": "that-said",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\bthat\\s+(?:said|being\\s+said)\\b|\\bwith\\s+that\\s+(?:said|in\\s+mind|caveat)\\b|\\bhaving\\s+said\\s+(?:that|all\\s+that)\\b|\\ball\\s+that\\s+said\\b|\\bat\\s+the\\s+end\\s+of\\s+the\\s+day\\b|\\bwhen\\s+all\\s+is\\s+said\\s+and\\s+done\\b|\\bwhen\\s+it\\s+comes\\s+down\\s+to\\s+it\\b"
+  },
+  {
+   "slug": "my-take",
+   "list": "noise",
+   "family": "narrating-the-answer",
+   "pattern": "\\bthe\\s+way\\s+(?:i|we)\\s+see\\s+it\\b|\\b(?:my|our)\\s+(?:honest\\s+|quick\\s+|rough\\s+|best\\s+|initial\\s+|gut\\s+)?(?:take|read|sense|guess|hunch|two\\s+cents)\\s+(?:is|here|on\\s+this|would\\s+be)\\b|\\bfor\\s+what\\s+it(?:['’]s|\\s+is)\\s+worth\\b|\\bfwiw\\b|\\bif\\s+you\\s+ask\\s+me\\b|\\bpersonally,\\s+(?:i|we)\\b"
+  },
+  {
+   "slug": "designed-to",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bdesigned\\s+to\\s+(?:help|make|give|let|empower|enable|simplify|streamline|ensure|deliver|provide|support|keep|bring|take|be|work|fit|save|meet|handle|scale|get)\\b|\\b(?:built|created|engineered|crafted|made|tailored|purpose-?built|developed)\\s+to\\s+(?:help|empower|enable|simplify|streamline|ensure|deliver|provide|support|make\\s+(?:it|your|life)|give\\s+you|let\\s+you|keep\\s+you|save\\s+you)\\b|\\bdesigned\\s+(?:for\\s+(?:teams|businesses|founders|people|anyone|everyone|you)|with\\s+\\w+\\s+in\\s+mind)\\b"
+  },
+  {
+   "slug": "puff-adjective",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\b(?:seamless(?:ly)?|effortless(?:ly)?|powerful(?:ly)?|robust(?:ly)?|cutting-?edge|next-?gen(?:eration)?|game-?chang(?:ing|er|ers)|state-?of-?the-?art|best-?in-?class|world-?class|revolutionary|groundbreaking|innovative|intuitive(?:ly)?|user-?friendly|lightning-?fast|blazing(?:ly)?(?:-?fast)?|frictionless|all-?in-?one|feature-?rich|holistic|turnkey|enterprise-?grade|battle-?tested|hassle-?free|stress-?free|worry-?free|bespoke|top-?notch|first-?class)\\b"
+  },
+  {
+   "slug": "puff-verb",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\b(?:streamlin(?:e|es|ing)\\s+(?:your|our|their|the\\s+way|every|all|workflows?|operations?|processes?|filings?|reporting|compliance|everything)|streamlined\\s+(?:your|workflows?|operations?|experience|solution|way\\s+to)|elevat(?:e|es|ing)\\s+(?:your|our|the|every)|unlock(?:s|ed|ing)?\\s+(?:the\\s+(?:power|potential|value|full)|your|new\\s+(?:levels?|possibilities|opportunities)|insights?|growth|efficiency|productivity|value)|empower(?:s|ed|ing|ment)?\\s+(?:your|you|teams|businesses|users|people)|supercharg(?:e|es|ed|ing)|turbocharg\\w*|leverag(?:e|es|ed|ing)\\s+(?:the\\s+power|ai|your|our|data|automation)|harness(?:es|ed|ing)?\\s+(?:the\\s+(?:power|potential|full)|ai|your|our|data)|unleash\\w*|revolutioni[sz]\\w*|transform(?:s|ed|ing)?\\s+(?:the\\s+way|how)\\s+(?:you|teams|businesses|people|companies)|reimagin\\w*|simplif(?:y|ies|ied|ying)\\s+(?:your|the\\s+way)|optimi[sz]\\w+\\s+your|boost(?:s|ed|ing)?\\s+your|maximi[sz]\\w+\\s+your|skyrocket\\w*|level\\s+up\\s+your|take\\s+(?:your\\s+)?[\\w\\s-]{0,30}\\bto\\s+the\\s+next\\s+level|effortlessly\\s+\\w+)\\b"
+  },
+  {
+   "slug": "whether-youre",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bwhether\\s+you(?:['’]re|\\s+are)\\b[^.!?\\n]{0,60}\\bor\\b|\\bfor\\s+(?:teams|businesses|founders|developers|people|companies)\\s+of\\s+all\\s+sizes\\b|\\b(?:from|for)\\s+(?:startups|solo\\s+founders|freelancers|small\\s+teams)\\s+to\\s+(?:enterprises?|fortune|large|global)\\b|\\bno\\s+matter\\s+(?:your|the|what|where|how)\\b"
+  },
+  {
+   "slug": "fast-paced-world",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bin\\s+today(?:['’]s)?\\s+(?:fast-?paced|digital|competitive|ever-?changing|rapidly|modern|hyper|busy|connected)\\b|\\bin\\s+(?:the|an?)\\s+(?:ever-?changing|rapidly\\s+(?:evolving|changing)|fast-?moving|dynamic|increasingly)\\s+(?:\\w+\\s+)?(?:world|landscape|market|environment|era|economy)\\b|\\bnow\\s+more\\s+than\\s+ever\\b|\\bin\\s+(?:this|the)\\s+(?:age|era)\\s+of\\b"
+  },
+  {
+   "slug": "say-goodbye",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bsay\\s+(?:goodbye|farewell)\\s+to\\b|(?:^|[.!?]\\s+|\\n\\s*)no\\s+more\\s+\\w+|\\bgone\\s+are\\s+the\\s+days\\b|\\bnever\\s+(?:again\\s+)?(?:worry|miss|lose|forget)\\s+(?:about\\s+)?(?:a|an|another|your)\\b|\\bdon(?:['’]t)\\s+let\\s+\\w+[^.!?\\n]{0,40}\\b(?:slip|hold\\s+you\\s+back|stand\\s+in\\s+your\\s+way|get\\s+in\\s+the\\s+way)\\b|\\bstop\\s+(?:wasting|losing|struggling|worrying|guessing)\\b|\\btired\\s+of\\b|\\bsick\\s+of\\b|\\bstruggling\\s+(?:with|to)\\b|\\bfrustrated\\s+(?:by|with)\\b"
+  },
+  {
+   "slug": "announcement",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\b(?:we(?:['’]re|\\s+are)|i(?:['’]m|\\s+am))\\s+(?:so\\s+|very\\s+|incredibly\\s+|beyond\\s+|really\\s+)?(?:excited|thrilled|proud|delighted|happy|pumped|stoked|honou?red)\\s+to\\s+(?:announce|share|introduce|launch|unveil|present|reveal|say)\\b|\\bexcited\\s+to\\s+(?:announce|share|introduce|launch)\\b|\\bthrilled\\s+to\\b|\\bproud\\s+to\\s+(?:announce|share|introduce|launch|present)\\b|(?:^|[.!?]\\s+|\\n\\s*)introducing\\s|\\bmeet\\s+(?:the\\s+new|your\\s+new)\\b|\\bsay\\s+hello\\s+to\\b|\\bbig\\s+news\\s*[:!.,]|\\b(?:we|i)\\s+(?:have|['’]ve\\s+got|got)\\s+big\\s+news\\b|\\bbig\\s+news\\s+(?:for|from|everyone|folks|today|this\\s+week)\\b|(?:^|[.!?]\\s+|\\n\\s*)announcing\\s|\\bnow\\s+live\\s*[:!]"
+  },
+  {
+   "slug": "ultimate",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bthe\\s+ultimate\\b|\\byour\\s+(?:one-?stop|go-?to|all-?in-?one|new\\s+favou?rite|secret\\s+weapon|new\\s+best\\s+friend|trusted\\s+partner|personal)\\s+(?:shop|hub|solution|tool|platform|assistant|companion|partner|destination|resource|source)\\b|\\bone-?stop(?:-shop)?\\b|\\bpeace\\s+of\\s+mind\\b|\\bat\\s+your\\s+fingertips\\b|\\blook\\s+no\\s+further\\b|\\bthe\\s+(?:easiest|smartest|fastest|simplest|best|most\\s+powerful)\\s+way\\s+to\\b|\\ba\\s+(?:smarter|better|faster|simpler|easier|new|modern)\\s+way\\s+to\\b|\\bmade\\s+(?:easy|simple|effortless)\\b|\\bin\\s+(?:seconds|minutes),\\s+not\\s+(?:hours|days|weeks)\\b|\\bwithout\\s+(?:the\\s+)?(?:hassle|headache|stress|guesswork|heavy\\s+lifting)\\b|\\bthe\\s+future\\s+of\\b|\\bstay\\s+(?:ahead|on\\s+top)\\s+of\\b|\\bget\\s+started\\s+today\\b|\\bjoin\\s+(?:thousands|hundreds|millions)\\b|\\btrusted\\s+by\\b|\\bloved\\s+by\\b|\\bwhat\\s+are\\s+you\\s+waiting\\s+for\\b|\\bunlike\\s+(?:other|traditional|legacy)\\b"
+  },
+  {
+   "slug": "generic-outcome",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "\\bfocus\\s+on\\s+what\\s+(?:matters|you\\s+do\\s+best|really\\s+matters|matters\\s+most)\\b|\\bso\\s+you\\s+can\\s+focus\\s+on\\b|\\b(?:grow|scale)\\s+your\\s+business\\b|\\bsave\\s+(?:you\\s+)?time\\s+and\\s+money\\b|\\bwork\\s+smarter\\b|\\bdo\\s+more\\s+with\\s+less\\b|\\bmakes?\\s+(?:your\\s+)?life\\s+easier\\b|\\btakes?\\s+the\\s+(?:guesswork|pain|stress|hassle|headache)\\s+out\\s+of\\b|\\bwe(?:['’]ve|\\s+have)\\s+got\\s+you\\s+covered\\b|\\bwe\\s+handle\\s+the\\s+rest\\b|\\bthe\\s+rest\\s+is\\s+(?:handled|taken\\s+care\\s+of)\\b|\\bsit\\s+back\\s+and\\s+relax\\b|\\bin\\s+(?:just\\s+)?(?:a\\s+few|\\d+|two|three)\\s+(?:simple|easy|quick)\\s+(?:clicks|steps)\\b|\\bin\\s+just\\s+(?:a\\s+few|\\d+|two|three)\\s+(?:clicks|steps)\\b|\\bthat\\s+just\\s+works\\b"
+  },
+  {
+   "slug": "rhetorical-hook",
+   "list": "noise",
+   "family": "filler-noise",
+   "pattern": "^\\s*(?:tired\\s+of|ever\\s+wonder(?:ed)?|what\\s+if|are\\s+you\\s+(?:still|tired|ready|looking|struggling|a)|do\\s+you\\s+(?:want|need|know|struggle|find|ever|have)|have\\s+you\\s+ever|struggling\\s+(?:with|to)|still\\s+\\w+ing|why\\s+(?:do|does|is|are|should)|want\\s+to|need\\s+to|looking\\s+for|ready\\s+to|wouldn(?:['’]t)\\s+it\\s+be|isn(?:['’]t)\\s+it\\s+time|what\\s+would\\s+you|how\\s+(?:much|many|often)\\s+(?:time|hours|money|do\\s+you))\\b[^\\n?]{0,140}\\?"
+  },
+  {
+   "slug": "caption-link",
+   "list": "prose",
+   "family": "caption-for-a-link",
+   "pattern": "(?:^|[.!?]\\s+|\\n)[ \\t]*(?:a|an|the|our|your|my|this)\\s+(?![^\\n:]*\\b(?:is|are|was|were|here|at|see|watch|open|go|goes)\\b)[^.!?\\n:<]{2,80}:[ \\t]*(?:\\n[ \\t]*)?<url>|(?:^|[.!?]\\s+|\\n)[ \\t]*(?!here\\b)[a-z][^.!?\\n:<]{1,60}\\s+of\\s+(?:the|our|your|a|an)\\s+[^.!?\\n:<]{1,40}:[ \\t]*(?:\\n[ \\t]*)?<url>",
+   "fix": "write a sentence that says what the link is: Here is a demo video: <link>"
+  },
+  {
+   "slug": "figure-no-payer",
+   "list": "prose",
+   "family": "figure-without-payer",
+   "pattern": "\\$\\s?\\d[\\d,]*(?:\\.\\d+)?\\b|\\b\\d[\\d,]*\\s+(?:dollars|usd)\\b|\\b\\d[\\d,]*(?:\\.\\d+)?\\s*(?:%|percent|per\\s*cent)",
+   "requires": "\\b(?:[Rr]elief|[Rr]efunds?|[Ff]ees?|[Ss]avings?|[Rr]evenue|[Cc]ommission|[Cc]ut|[Ss]hare|[Pp]rices?|[Rr]ecover(?:y|ies|ed)?|[Gg]rants?|[Gg]ranted|[Rr]ebates?|[Cc]ontingency|[Cc]harges?|[Pp]ayments?|[Pp]ayouts?|[Pp]aid|[Ii]nvoices?|[Bb]ills?|[Cc]osts?|[Dd]ollars|[Cc]redits?|\\$)",
+   "unless": "\\b(?:[Yy]ou|[Ww]e|[Tt]hey|I|[Ii]t|[Hh]e|[Ss]he|[Ww]ho|[Tt]hat|[Ww]hich|[Cc]lients?|[Cc]ustomers?|[Bb]uyers?|[Oo]wners?|[Ee]mployers?|[Cc]ompanies|[Tt]he\\s+\\w+(?<!ed)|[Oo]ur\\s+\\w+(?<!ed)|[Yy]our\\s+\\w+(?<!ed)|[A-Z][a-z]+(?<!ed))\\s+(?:(?:will|would|can|could|only|never|then|also|just|still|usually|typically)\\s+)?(?:pay|pays|paid|charge|charged|bill|bills|billed|cost|costs|invoice|invoices|invoiced|refund|refunds|refunded|grant|grants|granted|owe|owes|owed|keep|keeps|kept|get|gets|got|receive|receives|received|earn|earns|earned|save|saves|saved|recover|recovers|recovered|take|takes|took|collect|collects|collected|return|returns|returned)\\b|\\b(?:[Ff]ee|[Pp]rice|[Pp]ricing|[Rr]ate)\\s+(?:is|was|of|for)\\b|\\b(?:is|are|was|were|averages?|averaged|totals?|totaled|comes?\\s+to|came\\s+to|equals?)\\s+(?:about|around|roughly|over|under|at\\s+least|up\\s+to|\\$|\\d)|\\bcosts?\\s+(?:you|\\$|\\d)|\\bno\\s+charge\\b|\\bper\\s+(?:month|year|seat|user|line|statement|file)\\b|/mo\\b|/yr\\b",
+   "min_words": 6,
+   "fix": "put the figure in a clause with a payer and a verb: You pay 25 percent of what the state grants."
+  },
+  {
+   "slug": "product-metaphor",
+   "list": "prose",
+   "family": "product-metaphor",
+   "pattern": "\\b(?:the|our|your|a)\\s+desk\\b|\\bwalk-?throughs?\\b|\\b(?:the|our)\\s+(?:\\w+\\s+)?spine\\b|\\bunder\\s+the\\s+hood\\b|\\bbehind\\s+the\\s+scenes\\b|\\bthe\\s+magic\\b|\\b(?:our|the)\\s+secret\\s+sauce\\b",
+   "fix": "use the product's own site words: demo video, statements, protests, the product name"
+  },
+  {
+   "slug": "label-not-sentence",
+   "list": "prose",
+   "family": "label-not-sentence",
+   "pattern": "(?:^|\\n)[ \\t]*(?:a|an|the|our|your|my)\\s+(?![^\\n:]*\\b(?:is|are|was|were|has|have|had|does|did|will|can|here)\\b)[^\\n:.!?<`]{2,70}:[ \\t]*\\n(?:[ \\t]*\\n)*[ \\t]*(?![-*•|#>]|\\d+[.)]\\s|```)\\S",
+   "fix": "write the sentence the label stands for: Here is a demo video: <link>, or The state deadline is thirty days."
+  },
+  {
+   "slug": "naming-participial-tail",
+   "list": "prose",
+   "family": "modifier-tail",
+   "pattern": "(?:^|\\n)[ \\t]*(?:the|our|a|an|two|three|four|five|six|seven|eight|nine|ten|\\d+)\\s+[a-z][^\\n.!?:;]{0,50},\\s+(?:[a-z]+(?:ed|ing)|rebuilt|built|written|rewritten|drawn|redrawn|kept|made|remade|shown|taken|retaken|given|held|sent|resent|run|rerun|cut|recut|put|read|reread|set|reset|found|refound|left|lost|won|met|told|sold|resold|paid|repaid|spent|dealt|felt|drawn|torn|worn|sworn|blown|grown|known|thrown|flown|driven|proven|chosen|frozen|broken|spoken|woken|stolen|risen|fallen|eaten|beaten|hidden|ridden|bitten|bound|wound|ground|swept|slept|crept|dwelt|burnt|learnt|spelt|spilt|split|shut|hit|let|bet|quit|spread|shed|fed|refed|bled|led|misled|sped|fled|struck|stuck|dug|hung|swung|clung|flung|stung|spun|shot|caught|taught|brought|bought|fought|sought|thought)\\s+[^\\n.!?:;]{2,40}[ \\t]*(?=\\n|$)",
+   "fix": "say the plain noun and stop: \"four ranking sites\", not \"four boards, recounted every night\""
+  },
+  {
+   "slug": "naming-relative-clause",
+   "list": "prose",
+   "family": "modifier-tail",
+   "pattern": "(?:^|\\n)[ \\t]*(?:the|two|three|four|five|six|seven|eight|nine|ten|\\d+)\\s+[a-z][a-z-]{2,24}s\\s+(?:that|which|who|whom|whose|where|nobody|anybody|anyone|everyone|no one)\\s+[^\\n.!?:;]{4,60}[ \\t]*(?=\\n|$)",
+   "fix": "say the plain noun and stop: \"four ranking sites\", not \"four rankings nobody can buy their way onto\""
+  }
+ ]
+}

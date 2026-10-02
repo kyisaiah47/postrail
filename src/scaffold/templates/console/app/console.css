@@ -1,0 +1,46 @@
+/* CONSOLE VIEW. Dense: three columns, tables at body size, the current account marked in the
+ * accent. The shell width is the rail (260) plus the side panel (300) plus whatever the tables
+ * need between them. */
+
+.cx-bar { display: flex; align-items: center; gap: 24px; padding: 14px 4vw; border-bottom: 1px solid var(--rule); color: var(--ink-dim); }
+.cx-brand { font-weight: 600; color: var(--ink); }
+.cx-bar-note { margin-left: auto; }
+.cx-error { margin: 16px 4vw 0; padding: 12px 16px; border: 1px solid var(--stopped); border-radius: 8px; color: var(--ink); }
+.cx-grid { display: grid; grid-template-columns: 260px minmax(0, 1fr) 300px; min-height: calc(100vh - 120px); }
+
+.cx-rail { border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 4px; padding: 12px; }
+.cx-rail a { display: grid; gap: 4px; padding: 11px 14px; border: 1px solid transparent; border-radius: 8px; }
+.cx-rail a:hover { background: var(--panel); }
+.cx-rail a[aria-current='page'] { background: rgba(107, 155, 255, 0.1); border-color: rgba(107, 155, 255, 0.45); }
+.cx-rail-name { font-family: var(--mono); font-size: 13px; color: var(--ink); overflow-wrap: anywhere; }
+.cx-rail-sub { font-size: 13px; color: var(--ink-dim); }
+
+.cx-main { padding: 24px 28px 48px; display: grid; gap: 40px; align-content: start; min-width: 0; }
+.cx-main h2, .cx-side h2 { font-size: 17px; font-weight: 600; padding-bottom: 12px; }
+.cx-table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; }
+.cx-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.cx-table th { text-align: left; font-weight: 500; color: var(--ink-faint); padding: 10px 12px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.cx-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.cx-table tr:last-child td { border-bottom: 0; }
+.cx-table tr[data-current] td { background: rgba(107, 155, 255, 0.06); }
+.cx-table a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule-strong); }
+.cx-table a:hover { text-decoration-color: var(--accent); }
+.cx-text { min-width: 320px; color: var(--ink-dim); }
+.cx-empty { color: var(--ink-dim); }
+
+.cx-side { border-left: 1px solid var(--rule); padding: 24px 24px 48px; display: grid; gap: 14px; align-content: start; }
+.cx-side h3 { font-size: 14px; font-weight: 600; padding-top: 12px; }
+.cx-side-sub { color: var(--ink-dim); font-size: 14px; }
+.cx-halt { border: 1px solid var(--stopped); border-radius: 8px; padding: 12px 14px; display: grid; gap: 8px; font-size: 14px; }
+.cx-dl { margin: 0; display: grid; }
+.cx-dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+.cx-dl dt { color: var(--ink-dim); }
+.cx-dl dd { margin: 0; }
+
+@media (max-width: 1100px) {
+  .cx-grid { grid-template-columns: 1fr; }
+  .cx-rail { border-right: 0; border-bottom: 1px solid var(--rule); flex-direction: row; overflow-x: auto; }
+  .cx-rail a { min-width: 200px; }
+  .cx-side { border-left: 0; border-top: 1px solid var(--rule); }
+  .cx-main { padding: 20px 16px 40px; }
+}

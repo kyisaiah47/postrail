@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scrub:
+    name: scrub gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fail on private identifiers, key shapes and bot-detection bypass code
+        run: node scripts/scrub-gate.mjs
+
+  test:
+    name: tests (node ${{ matrix.node }})
+    needs: scrub
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Install ffmpeg for the video cut test
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm ci
+      - name: Install Chromium for the browser transport test
+        run: npx playwright install --with-deps chromium
+      - run: npm test

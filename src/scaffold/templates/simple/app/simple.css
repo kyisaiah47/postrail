@@ -1,0 +1,45 @@
+/* SIMPLE VIEW. The same tokens and faces as the console, a roomier composition. Room comes from
+ * layout and larger type, not from a narrow shell. */
+
+.sv-home { padding: 0 5vw 56px; display: grid; gap: 40px; }
+.sv-hero { padding: 56px 0 8px; display: grid; gap: 18px; }
+.sv-hero h1 { font-size: clamp(34px, 4vw, 54px); line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; }
+.sv-hero > p { font-size: 18px; line-height: 1.7; color: var(--ink-dim); }
+.sv-note { font-size: 14px; color: var(--ink-faint); }
+
+.sv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.sv-card { border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); padding: 24px; display: grid; gap: 14px; align-content: start; }
+.sv-card h2 { font-size: 20px; font-weight: 600; font-family: var(--mono); overflow-wrap: anywhere; }
+.sv-card-sub { color: var(--ink-dim); }
+.sv-card-stop { border-color: var(--stopped); }
+.sv-next { font-size: 16px; }
+
+.sv-post { margin: 0; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 8px; background: var(--panel-2); display: grid; gap: 8px; }
+.sv-post p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.sv-post a { font-size: 13px; color: var(--ink-dim); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.sv-post a:hover { color: var(--ink); text-decoration-color: var(--accent); }
+.sv-post-meta { font-size: 13px; color: var(--ink-faint); }
+
+.sv-section { display: grid; gap: 16px; border-top: 1px solid var(--rule); padding-top: 32px; }
+.sv-section h2 { font-size: 24px; font-weight: 600; }
+.sv-recent { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+
+.sv-slots { list-style: none; margin: 0; padding: 0; display: grid; }
+.sv-slots li { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+
+.sv-disclosure { border-top: 1px solid var(--rule); }
+.sv-disclosure > button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 48px; padding: 12px 0; text-align: left; font-size: 15px; font-weight: 500; }
+.sv-disclosure > button:hover .sv-sign { color: var(--accent); }
+.sv-sign { color: var(--ink-faint); font-size: 20px; line-height: 1; }
+.sv-reveal { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 240ms var(--ease), opacity 240ms ease; }
+.sv-reveal[data-open='true'] { grid-template-rows: 1fr; opacity: 1; }
+.sv-reveal > div { min-height: 0; overflow: hidden; }
+.sv-answer { padding: 4px 0 20px; color: var(--ink-dim); }
+
+@media (prefers-reduced-motion: reduce) { .sv-reveal { transition: none; } }
+@media (max-width: 640px) {
+  .sv-home { padding: 0 16px 40px; }
+  .sv-grid, .sv-recent { grid-template-columns: 1fr; }
+  .sv-slots li { grid-template-columns: 56px 1fr; }
+  .sv-slots li .status { grid-column: 2; }
+}

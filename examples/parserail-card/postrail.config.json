@@ -1,0 +1,62 @@
+{
+  "timezone": "America/New_York",
+  "stateDir": ".postrail",
+  "provider": { "kind": "gemini", "model": "gemini-flash-lite-latest", "apiKeyEnv": "GEMINI_API_KEY" },
+  "copyGates": { "noise": true, "prose": true, "dashes": true },
+  "subjects": [
+    {
+      "id": "parserail",
+      "name": "ParseRail",
+      "url": "https://parserail.thecompound.tech",
+      "headline": "The AI back-end for your product.",
+      "facts": [
+        "1 credit = $0.01 and a call is charged only when it succeeds, so a failed call always costs nothing.",
+        "Every endpoint has a flat per-task price, an invoice parse is $0.08, and you're only charged when the task succeeds.",
+        "Submit as a job and get a webhook when it finishes.",
+        "One wallet spends on any endpoint, packs and plans top up the same balance, and auto-recharge keeps unattended agents running.",
+        "Endpoints are added, paused and repriced, and a paused one returns 503 and charges nothing."
+      ],
+      "source": "Every fact above is a sentence on https://parserail.thecompound.tech, read on 2026-10-02."
+    }
+  ],
+  "accounts": [
+    {
+      "id": "example-bluesky",
+      "platform": "bluesky",
+      "handle": "example.bsky.social",
+      "transport": { "kind": "bluesky", "identifierEnv": "BSKY_IDENTIFIER", "passwordEnv": "BSKY_APP_PASSWORD" },
+      "cadence": { "perDay": 3, "minGapMin": 150, "window": [8, 22], "jitterMin": 20 },
+      "caps": { "postsPerDay": 3, "repliesPerDay": 10 },
+      "mix": { "pitch": 0.5, "teach": 0.5 },
+      "media": { "pitch": { "card": 1 }, "teach": { "card": 0.5, "none": 0.5 } },
+      "subjects": ["parserail"],
+      "promo": ["ParseRail", "parserail\\."]
+    },
+    {
+      "id": "example-x",
+      "platform": "x",
+      "handle": "@example_postrail",
+      "transport": {
+        "kind": "x", "auth": "oauth1",
+        "consumerKeyEnv": "X_API_KEY", "consumerSecretEnv": "X_API_SECRET",
+        "accessTokenEnv": "X_ACCESS_TOKEN", "accessSecretEnv": "X_ACCESS_SECRET"
+      },
+      "cadence": { "perDay": 2, "minGapMin": 240, "window": [9, 21] },
+      "mix": { "pitch": 0.4, "teach": 0.6 },
+      "media": { "default": { "card": 1 } },
+      "subjects": ["parserail"],
+      "promo": ["ParseRail", "parserail\\."]
+    },
+    {
+      "id": "example-linkedin",
+      "platform": "linkedin",
+      "handle": "example-person",
+      "transport": { "kind": "linkedin", "tokenEnv": "LINKEDIN_TOKEN" },
+      "cadence": { "perDay": 1, "window": [9, 17], "days": [1, 2, 3, 4, 5] },
+      "mix": { "pitch": 1 },
+      "media": { "default": { "card": 1 } },
+      "subjects": ["parserail"],
+      "promo": ["ParseRail", "parserail\\."]
+    }
+  ]
+}

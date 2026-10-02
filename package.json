@@ -1,0 +1,60 @@
+{
+  "name": "postrail",
+  "version": "0.1.0",
+  "description": "Open-source social posting agent. An account registry, a slot engine that retries until a post lands, official API transports, cards, video cuts, an optional reply module that is off by default, and a review command that reads what was actually posted.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Compound Labs (https://thecompound.tech)",
+  "homepage": "https://postrail.thecompound.tech",
+  "keywords": [
+    "social",
+    "scheduler",
+    "bluesky",
+    "atproto",
+    "x-api",
+    "threads",
+    "linkedin",
+    "instagram",
+    "youtube",
+    "agent",
+    "llm"
+  ],
+  "engines": {
+    "node": ">=20.10"
+  },
+  "bin": {
+    "postrail": "bin/postrail.js"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "examples/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "scrub": "node scripts/scrub-gate.mjs",
+    "check": "node scripts/scrub-gate.mjs && node --test test/*.test.js",
+    "example": "node examples/parserail-card/run.mjs"
+  },
+  "optionalDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

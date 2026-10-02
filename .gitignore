@@ -1,0 +1,8 @@
+node_modules/
+.postrail/
+examples/**/.postrail/
+examples/**/out/
+*.log
+.DS_Store
+.env
+.env.*
